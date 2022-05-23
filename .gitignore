@@ -24,6 +24,7 @@
 # Nested build directory
 /build
 /tw59build
+/examples/tw59challenge/target/
 
 #==============================================================================#
 # Explicit files to ignore (only matches one).
