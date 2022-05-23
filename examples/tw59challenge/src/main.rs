@@ -20,6 +20,7 @@ pub mod wasmedge_hostfunctionexample {
         pub fn host_function_example_add_student(student: *const c_char, len: u32) -> u32;
         pub fn host_function_example_set_class_name(name: *const c_char, len: u32);
         pub fn host_function_example_print();
+        pub fn host_function_example_binary_gcd(a: u32, b: u32) -> u32;
     }
 }
 
@@ -57,6 +58,10 @@ pub fn print() {
     }
 }
 
+pub fn binary_gcd(a: u32, b: u32) -> u32 {
+    unsafe { wasmedge_hostfunctionexample::host_function_example_binary_gcd(a, b) }
+}
+
 fn main() {
     // test example function
     set_class_id(101);
@@ -65,4 +70,9 @@ fn main() {
         println!("add {}, student number = {}", s, add_student(*s));
     });
     print();
+
+    dbg!(binary_gcd(2, 2));
+    dbg!(binary_gcd(2, 4));
+    dbg!(binary_gcd(12, 16));
+    dbg!(binary_gcd(111111111, 111111112));
 }

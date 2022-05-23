@@ -43,14 +43,61 @@ HostFuncExampleSetClassName::body(Runtime::Instance::MemoryInstance *MemInst,
   return {};
 }
 
-Expect<void> HostFuncExamplePrint::body([
-    [maybe_unused]] Runtime::Instance::MemoryInstance *MemInst) {
+Expect<void> HostFuncExamplePrint::body(
+    [[maybe_unused]] Runtime::Instance::MemoryInstance *MemInst) {
   std::cout << "Class ID: " << Env.ClassID << std::endl;
   std::cout << "Class Name: " << Env.ClassName << std::endl;
   for (auto &Student : Env.Students) {
     std::cout << "Student: " << Student << std::endl;
   }
   return {};
+}
+
+Expect<uint32_t> HostFuncExampleBinaryGCD::body(
+    [[maybe_unused]] Runtime::Instance::MemoryInstance *MemInst, uint32_t a,
+    uint32_t b) {
+
+  /* GCD(0, b) == b; GCD(a, 0) == a,
+     GCD(0, 0) == 0 */
+  if (a == 0)
+    return b;
+  if (b == 0)
+    return a;
+
+  /*Finding K, where K is the
+    greatest power of 2
+    that divides both a and b. */
+  int k;
+  for (k = 0; ((a | b) & 1) == 0; ++k) {
+    a >>= 1;
+    b >>= 1;
+  }
+
+  /* Dividing a by 2 until a becomes odd */
+  while ((a & 1) == 0)
+    a >>= 1;
+
+  /* From here on, 'a' is always odd. */
+  do {
+    /* If b is even, remove all factor of 2 in b */
+    while ((b & 1) == 0)
+      b >>= 1;
+
+    /* Now a and b are both odd.
+       Swap if necessary so a <= b,
+       then set b = b - a (which is even).*/
+    if (a > b) {
+      // Swap u and v.
+      auto t = a;
+      a = b;
+      b = t;
+    }
+
+    b = (b - a);
+  } while (b != 0);
+
+  /* restore common factors of 2 */
+  return a << k;
 }
 
 } // namespace Host

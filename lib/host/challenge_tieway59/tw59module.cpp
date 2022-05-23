@@ -19,6 +19,8 @@ HostFuncExampleModule::HostFuncExampleModule()
               std::make_unique<HostFuncExampleSetClassName>(Env));
   addHostFunc("host_function_example_print",
               std::make_unique<HostFuncExamplePrint>(Env));
+  addHostFunc("host_function_example_binary_gcd",
+              std::make_unique<HostFuncExampleBinaryGCD>(Env));
 }
 
 } // namespace Host

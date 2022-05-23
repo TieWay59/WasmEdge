@@ -42,5 +42,14 @@ public:
   Expect<void> body(Runtime::Instance::MemoryInstance *MemInst);
 };
 
+class HostFuncExampleBinaryGCD
+    : public HostFuncExample<HostFuncExampleBinaryGCD> {
+public:
+  HostFuncExampleBinaryGCD(HostFuncExampleEnvironment &HostEnv)
+      : HostFuncExample(HostEnv) {}
+  Expect<uint32_t> body(Runtime::Instance::MemoryInstance *MemInst, uint32_t a,
+                        uint32_t b);
+};
+
 } // namespace Host
 } // namespace WasmEdge
