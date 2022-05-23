@@ -10,7 +10,7 @@ namespace Host {
 
 /// Register your functions in module.
 HostFuncExampleModule::HostFuncExampleModule()
-    : ImportObject("host_function_example") {
+    : ModuleInstance("host_function_example") {
   addHostFunc("host_function_example_set_class_id",
               std::make_unique<HostFuncExampleSetClassID>(Env));
   addHostFunc("host_function_example_add_student",

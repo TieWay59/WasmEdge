@@ -4,18 +4,19 @@
 #pragma once
 
 #include "host/challenge_tieway59/tw59env.h"
-#include "runtime/importobj.h"
+#include "runtime/instance/module.h"
 
 #include <cstdint>
 
 namespace WasmEdge {
 namespace Host {
 
-class HostFuncExampleModule : public Runtime::ImportObject {
+class HostFuncExampleModule : public Runtime::Instance::ModuleInstance {
 public:
   HostFuncExampleModule();
 
   HostFuncExampleEnvironment &getEnv() { return Env; }
+  const HostFuncExampleEnvironment &getEnv() const noexcept { return Env; }
 
 private:
   HostFuncExampleEnvironment Env;
